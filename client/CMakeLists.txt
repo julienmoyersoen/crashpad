@@ -46,6 +46,7 @@ if (WIN32)
 endif (WIN32)
 
 add_library(client STATIC ${CRASHPAD_CLIENT_LIBRARY_FILES})
+install(TARGETS client LIBRARY)
 
 target_compile_features(client PUBLIC cxx_std_14)
 

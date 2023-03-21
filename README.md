@@ -33,13 +33,15 @@ Please see examples for usage examples.
 Initial checkout
 ```sh
 # Clone the repository
-git clone git@github.com:backtrace-labs/crashpad.git
+git clone https://github.com/julienmoyersoen/crashpad.git
 cd crashpad
 # use the `backtrace` branch:
 git checkout backtrace
 # initialize submodules
 git submodule update --init --recursive
 ```
+
+Make sure the forked repo is in sync with the upstream repo (https://github.com/backtrace-labs/crashpad.git) (see fetch upstream: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/working-with-forks/syncing-a-fork#syncing-a-fork-branch-from-the-command-line)
 
 Ensure that Visual Studio 2019 and CMake are in the path. You can do that by
 running terminal from the shortcut provided by the Visual Studio Installer.
@@ -51,7 +53,10 @@ mkdir -p cbuild && cd cbuild
 # run CMake (additional options like -DCMAKE_EXPORT_COMPILE_COMMANDS=TRUE are possible)
 # it is recommended to specify the compiler version used for the build
 cmake -G "Visual Studio 16 2019" ..
-cmake --build .
+cmake --build . --config=release
+cmake --install . --config=release
+cmake --build . --config=debug
+cmake --install . --config=debug
 ```
 
 ### Linux

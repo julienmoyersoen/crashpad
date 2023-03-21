@@ -45,6 +45,7 @@ if (ANDROID)
 endif (ANDROID)
 
 add_executable(handler main.cc)
+install(TARGETS handler RUNTIME)
 target_sources(handler PRIVATE ${CRASHPAD_HANDLER_LIBRARY_FILES})
 target_compile_features(handler PUBLIC cxx_std_17)
 target_include_directories(handler PRIVATE ..)

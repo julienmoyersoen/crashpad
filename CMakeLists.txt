@@ -61,6 +61,11 @@ if (WIN32)
     add_subdirectory(third_party/getopt)
 endif (WIN32)
 
+set(CMAKE_INSTALL_PREFIX "${CMAKE_CURRENT_SOURCE_DIR}/install")
+set(CMAKE_INSTALL_LIBDIR "${CMAKE_INSTALL_PREFIX}/lib/$<CONFIG>")
+set(CMAKE_INSTALL_BINDIR "${CMAKE_INSTALL_PREFIX}/bin/$<CONFIG>")
+set(CMAKE_INSTALL_INCLUDEDIR "${CMAKE_INSTALL_PREFIX}/include")
+
 add_subdirectory(util)
 add_subdirectory(compat)
 add_subdirectory(snapshot)
@@ -69,6 +74,17 @@ add_subdirectory(third_party/mini_chromium)
 add_subdirectory(client)
 add_subdirectory(handler)
 add_subdirectory(tools)
+
+#Install all header files
+file(GLOB_RECURSE CRASHPAD_HEADERS
+    RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/**/*.h"
+)
+
+foreach ( file ${CRASHPAD_HEADERS} )
+    get_filename_component( dir ${file} DIRECTORY BASE_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
+    install( FILES "${CMAKE_CURRENT_SOURCE_DIR}/${file}" DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/${dir}" )
+endforeach()
 
 if (BUILD_EXAMPLES)
     add_subdirectory(examples)
